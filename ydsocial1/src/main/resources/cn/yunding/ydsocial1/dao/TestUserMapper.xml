@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yunding.ydsocial1.dao.TestDao">
+    <resultMap id="testUser" type="TestMS">
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+    <sql id="testUserSelector">
+        SELECT username,password FROM test_user
+        <where>
+            <if test="username != null">
+                username=#{username}
+            </if>
+            <if test="password != null">
+               AND password=#{password}
+            </if>
+        </where>
+    </sql>
+    <select id="selectUser" parameterType="TestMS" resultMap="testUser">
+        <include refid="testUserSelector"/>
+    </select>
+
+</mapper>
